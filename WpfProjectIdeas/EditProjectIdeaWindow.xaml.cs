@@ -100,14 +100,7 @@ namespace WpfProjectIdeas
             interDeviceCheckbox.IsChecked = projectIdea.InterDevice;
             serverCheckbox.IsChecked = projectIdea.Server;
         }
-        #endregion
-
-        // TODO: Text not disappearing and colored black when in focus via tab.
-        private void DescriptionTextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            descriptionTextBox.Text = "";
-            descriptionTextBox.Foreground = new SolidColorBrush(Colors.Black);
-        }
+        #endregion       
 
         private void BackupDataButton_Click(object sender, RoutedEventArgs e)
         {
@@ -125,7 +118,7 @@ namespace WpfProjectIdeas
         }
         #endregion
 
-        #region Key downs       
+        #region Key Downs       
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -186,8 +179,15 @@ namespace WpfProjectIdeas
                 selectedCheckBox.IsChecked = !selectedCheckBox.IsChecked;
             }
         }
-        #endregion        
+        #endregion
 
+        #region Other eventhandlers
+        private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            descriptionTextBox.Text = "";
+            descriptionTextBox.Foreground = new SolidColorBrush(Colors.Black);
+        }
+        #endregion
 
         #region Helpers    
         private void BackupDatabase()
@@ -272,7 +272,8 @@ namespace WpfProjectIdeas
             languageTextBox.Text = "";
             startDatePicker.SelectedDate = null;
             endDatePicker.SelectedDate = null;
-            descriptionTextBox.Text = "";
+            descriptionTextBox.Foreground = new SolidColorBrush(Colors.Gray);
+            descriptionTextBox.Text = "Enter description";            
             desktopCheckbox.IsChecked = false;
             webCheckbox.IsChecked = false;
             mobileCheckbox.IsChecked = false;
@@ -304,8 +305,11 @@ namespace WpfProjectIdeas
             int range = ((TimeSpan)(DateTime.Today - start)).Days;   
             return start.AddDays(rnd.Next(range));
         }
+
         #endregion
 
         
+
     }
 }
+                

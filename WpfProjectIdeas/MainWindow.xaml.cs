@@ -36,6 +36,7 @@ namespace WpfProjectIdeas
         // TODO: Listview skal være responsiv.
         // TODO: Lav custom commands ala ctrl+n og ctrl+s for new- og save-funktionalitet.
         // TODO: Lav custom controls til list view og databind på den avancerede måde.
+        // TODO: Sørg for at ord indeholdende ikke-engelske bogstaver bliver sorteret korrekt i listview.
 
 
         private void NewProjectIdeaBtn_Click(object sender, RoutedEventArgs e)
