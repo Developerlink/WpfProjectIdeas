@@ -184,8 +184,11 @@ namespace WpfProjectIdeas
         #region Other eventhandlers
         private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            descriptionTextBox.Text = "";
             descriptionTextBox.Foreground = new SolidColorBrush(Colors.Black);
+            if (descriptionTextBox.Text == "Enter description")
+            {
+                descriptionTextBox.Text = "";                
+            }            
         }
         #endregion
 

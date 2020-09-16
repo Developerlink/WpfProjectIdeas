@@ -94,6 +94,8 @@ namespace WpfProjectIdeas
             if (projectIdea != null)
             {
                 EditProjectIdeaWindow editProjectIdeaWindow = new EditProjectIdeaWindow(projectIdea);
+                editProjectIdeaWindow.Owner = this;
+                editProjectIdeaWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 editProjectIdeaWindow.ShowDialog();
                 ReadData();
             }
