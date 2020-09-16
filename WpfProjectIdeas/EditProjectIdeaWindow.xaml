@@ -137,6 +137,7 @@
                  KeyboardNavigation.TabIndex="0"
                  AcceptsReturn="True"
                  Text="Enter description"
+                 TextWrapping="Wrap"
                  Foreground="Gray"
                  GotFocus="DescriptionTextBox_GotFocus"
                  Style="{StaticResource inputTextBoxStyle}"
