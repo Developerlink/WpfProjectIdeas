@@ -64,6 +64,12 @@
                 Click="ClearAllFieldsButton_Click"
                 Grid.Row="5"
                 Grid.Column="8"/>
+        <Button x:Name="createDummyDataButton"
+                Content="Dummy (home)" 
+                Style="{StaticResource secondButtonStyle}"
+                Click="CreateDummyDataButton_Click"
+                Grid.Row="7"
+                Grid.Column="8"/>
         
         <TextBlock Text="Project name"
                    Style="{StaticResource techTextBlockStyle}"
@@ -77,7 +83,7 @@
                  Grid.Column="4"
                  Grid.ColumnSpan="4" />
 
-        <TextBlock Text="Markup Lang."
+        <TextBlock Text="Frontend"
                    Style="{StaticResource techTextBlockStyle}"
                    Grid.Row="1"
                    Grid.Column="0"
@@ -88,7 +94,7 @@
                  Grid.Row="1"
                  Grid.Column="2"
                  Grid.ColumnSpan="2" />
-        <TextBlock Text="Language"
+        <TextBlock Text="Backend"
                    Style="{StaticResource techTextBlockStyle}"
                    Grid.Row="1"
                    Grid.Column="4"

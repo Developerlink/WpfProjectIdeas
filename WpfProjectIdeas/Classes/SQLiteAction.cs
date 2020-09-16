@@ -10,6 +10,13 @@ namespace WpfProjectIdeas.Classes
 {
     public class SQLiteAction
     {
+
+        //public partial class App : Application
+        //{
+        //    static string databaseName = "ProjectIdeasDB.db";
+        //    static string folderPath = AppDomain.CurrentDomain.BaseDirectory;
+        //    public static string databasePath = System.IO.Path.Combine(folderPath, databaseName);
+        //}
         public static void SaveNewToDB(ProjectIdea projectIdea)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.databasePath))

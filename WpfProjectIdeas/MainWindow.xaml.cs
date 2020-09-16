@@ -16,6 +16,7 @@ using WpfProjectIdeas.Classes;
 using SQLite;
 using System.Collections.ObjectModel;
 using static WpfProjectIdeas.Classes.SQLiteAction;
+using System.Reflection;
 
 namespace WpfProjectIdeas
 {
@@ -24,19 +25,13 @@ namespace WpfProjectIdeas
     /// </summary>
     public partial class MainWindow : Window
     {
+        string orderSelection = "Name";
         public MainWindow()
         {
             InitializeComponent();
 
             ReadData();
-        }
-
-        // TODO: Release build programmet
-        // TODO: Skriv alle projekt-ideer ind i programmet
-        // TODO: Lav en ekstern fixme.txt ELLER brug funktionalitet i vs til at finde alle todo's og skriv ind i txt-fil for mig
-        // TODO: Zip en kopi og put i onedrive
-        // TODO: Upload til github
-        // TODO: Memory test og opdater keychain numbers og regel for ændring af password year+tkhyear+tthyear+lnhyear
+        }       
 
         // TODO: Listview skal være responsiv.
         // TODO: Lav custom commands ala ctrl+n og ctrl+s for new- og save-funktionalitet.
@@ -47,22 +42,6 @@ namespace WpfProjectIdeas
         {
             OpenEditProjectIdeaWindow();
         }
-
-        void ReadData()
-        {
-            List<ProjectIdea> projectIdeaList;
-
-            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.databasePath))
-            {
-                conn.CreateTable<ProjectIdea>();
-                projectIdeaList = conn.Table<ProjectIdea>().ToList();
-            }
-            if (projectIdeaList != null)
-            {
-                projectIdeaListView.ItemsSource = projectIdeaList;
-            }
-        }
-
 
         private void ContactsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -83,6 +62,7 @@ namespace WpfProjectIdeas
         private void EditProjectIdea_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             ProjectIdea selectedProjectIdea = (ProjectIdea)projectIdeaListView.SelectedItem;
+            int currentIndex = projectIdeaListView.SelectedIndex;
 
             if (e.Key == Key.Enter)
             {
@@ -90,9 +70,15 @@ namespace WpfProjectIdeas
             }
             else if (e.Key == Key.Delete)
             {
-                DeleteFromDB(selectedProjectIdea);
-                ReadData();
-                
+                // Don't try to delete anything if there are no items in list.
+                if(projectIdeaListView.Items.Count > 0)
+                {
+                    DeleteFromDB(selectedProjectIdea);
+                    ReadData();
+                    // Jump to the correct index via the current index.
+                    SetListviewSelectedItemVia(currentIndex);
+                }
+
             }
         }
 
@@ -125,6 +111,79 @@ namespace WpfProjectIdeas
                     projectIdeaListView.SelectedItem = projectIdeaListView.Items[0];
                     projectIdeaListView.Focus();
                 }
+            }
+        }            
+
+        private void OrderSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem item = (ComboBoxItem)orderSelectionComboBox.SelectedItem;
+            string orderSelection = item.Content.ToString();
+
+            switch (orderSelection)
+            {
+                case "Frontend":
+                    this.orderSelection = orderSelection;
+                        break;
+                    case "Backend":
+                    this.orderSelection = orderSelection;
+                        break;
+                    case "Start date":
+                    this.orderSelection = orderSelection;
+                        break;
+                    case "End date":
+                    this.orderSelection = orderSelection;
+                        break;
+                    default:
+                    this.orderSelection = orderSelection;
+                        break;
+            }
+            ReadData();
+        }
+
+        void ReadData()
+        {
+            List<ProjectIdea> projectIdeaList;
+
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.databasePath))
+            {
+                conn.CreateTable<ProjectIdea>();
+
+                switch (orderSelection)
+                {
+                    case "Frontend":
+                        projectIdeaList = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.Frontend).ToList();
+                        break;
+                    case "Backend":
+                        projectIdeaList = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.Backend).ToList();
+                        break;
+                    case "Start date":
+                        projectIdeaList = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.StartDate).ToList();
+                        break;
+                    case "End date":
+                        projectIdeaList = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.EndDate).ToList();
+                        break;
+                    default:
+                        projectIdeaList = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.Name).ToList();
+                        break;
+                }
+
+            }
+            if (projectIdeaList != null)
+            {
+                projectIdeaListView.ItemsSource = projectIdeaList;
+            }
+        }
+
+        void SetListviewSelectedItemVia(int index)
+        {
+            // If index of deleted item is the last go back 1 item. 
+            if(index == projectIdeaListView.Items.Count)
+            {
+                projectIdeaListView.SelectedIndex = index - 1;
+            }
+            else
+            {
+                projectIdeaListView.SelectedIndex = index;
             }
         }
     }

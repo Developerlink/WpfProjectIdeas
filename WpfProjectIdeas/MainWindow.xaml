@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfProjectIdeas"
         mc:Ignorable="d"
         Icon="favicon.ico"
-        Title="Project Ideas (shortcuts: 'n' to create new project ida - 'right arrow' to focus on list"
+        Title="Project Ideas"
         Height="600"
         Width="700"
         PreviewKeyDown="Window_PreviewKeyDown">
@@ -20,12 +20,20 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ComboBox Margin="20,15,20,15"
+        <ComboBox x:Name="orderSelectionComboBox" 
+                  Margin="20,15,20,15"
                   Height="25"
                   Grid.Row="0"
-                  Grid.Column="0" />
+                  Grid.Column="0"
+                  SelectionChanged="OrderSelectionComboBox_SelectionChanged">
+            <ComboBoxItem>Name</ComboBoxItem>
+            <ComboBoxItem>Frontend</ComboBoxItem>
+            <ComboBoxItem>Backend</ComboBoxItem>
+            <ComboBoxItem>Start date</ComboBoxItem>
+            <ComboBoxItem>End date</ComboBoxItem>
+        </ComboBox>
         <Button x:Name="newProjectIdeaBtn"
-                Content="New project Idea"
+                Content="New project Idea (n)"
                 Style="{StaticResource mainButtonStyle}"
                 Click="NewProjectIdeaBtn_Click"
                 Margin="20,10,20,10"
@@ -65,7 +73,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Project Name"
-                                    Width="auto">
+                                    Width="220">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"
@@ -78,7 +86,7 @@
                                     Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MarkupLanguage}"
+                                <TextBlock Text="{Binding Frontend}"
                                            Style="{StaticResource labelTextBlockStyle}"
                                            Margin="-6, -3,-5,0" />
                             </DataTemplate>
@@ -88,7 +96,7 @@
                                     Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Language}"
+                                <TextBlock Text="{Binding Backend}"
                                            Style="{StaticResource labelTextBlockStyle}"
                                            Margin="-6, -3,-5,0" />
                             </DataTemplate>
@@ -104,7 +112,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="End Date"
+                    <GridViewColumn Header="End Date (right arrow key)"
                                     Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

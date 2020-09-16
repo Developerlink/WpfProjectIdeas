@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using WpfProjectIdeas.Classes;
 using SQLite;
 using static WpfProjectIdeas.Classes.SQLiteAction;
+using static WpfProjectIdeas.Classes.RandomMaker;
 using Microsoft.Win32;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -77,8 +78,8 @@ namespace WpfProjectIdeas
         private void DisplayDataFromExisting(ProjectIdea projectIdea)
         {
             projectTitleTextBox.Text = projectIdea.Name;
-            markupLanguageTextBox.Text = projectIdea.MarkupLanguage;
-            languageTextBox.Text = projectIdea.Language;
+            markupLanguageTextBox.Text = projectIdea.Frontend;
+            languageTextBox.Text = projectIdea.Backend;
             startDatePicker.SelectedDate = projectIdea.StartDate;
             endDatePicker.SelectedDate = projectIdea.EndDate;
             descriptionTextBox.Text = projectIdea.Description;
@@ -101,6 +102,7 @@ namespace WpfProjectIdeas
         }
         #endregion
 
+        // TODO: Text not disappearing and colored black when in focus via tab.
         private void DescriptionTextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             descriptionTextBox.Text = "";
@@ -115,6 +117,11 @@ namespace WpfProjectIdeas
         private void ClearAllFieldsButton_Click(object sender, RoutedEventArgs e)
         {
             ClearAllFields();
+        }
+
+        private void CreateDummyDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateDummyData();
         }
         #endregion
 
@@ -152,6 +159,9 @@ namespace WpfProjectIdeas
                     break;
                 case Key.End:
                     ClearAllFields();
+                    break;
+                case Key.Home:
+                    CreateDummyData();
                     break;
                 default:
                     break;
@@ -217,23 +227,23 @@ namespace WpfProjectIdeas
         }
         private void CreateDummyData()
         {
-            projectTitleTextBox.Text = "Test project";
-            markupLanguageTextBox.Text = "WPF";
-            languageTextBox.Text = "C#";
-            startDatePicker.SelectedDate = RandomDateGenerator();
-            endDatePicker.SelectedDate = RandomDateGenerator();
+            projectTitleTextBox.Text = GetRandomProjectName();
+            markupLanguageTextBox.Text = GetRandomFrontendTech();
+            languageTextBox.Text = GetRandomBackendTech();
+            startDatePicker.SelectedDate = GetRandomDateQuick();
+            endDatePicker.SelectedDate = GetRandomDateFromNowToDate(2020, 12, 24);
             descriptionTextBox.Foreground = new SolidColorBrush(Colors.Black);
-            descriptionTextBox.Text = "This is just a test intry for the table.";
-            desktopCheckbox.IsChecked = true;
-            AICheckbox.IsChecked = true;
-            soundCheckbox.IsChecked = true;
+            descriptionTextBox.Text = GetRandomFillerText();
+            desktopCheckbox.IsChecked = GetRandomBool();
+            AICheckbox.IsChecked = GetRandomBool();
+            soundCheckbox.IsChecked = GetRandomBool();
         }
 
         private void SaveChangesToLocalObject(ProjectIdea projectIdea)
         {
             projectIdea.Name = projectTitleTextBox.Text;
-            projectIdea.MarkupLanguage = markupLanguageTextBox.Text;
-            projectIdea.Language = languageTextBox.Text;
+            projectIdea.Frontend = markupLanguageTextBox.Text;
+            projectIdea.Backend = languageTextBox.Text;
             projectIdea.StartDate = startDatePicker.SelectedDate.Value.Date;
             projectIdea.EndDate = endDatePicker.SelectedDate.Value.Date;
             projectIdea.Description = descriptionTextBox.Text;
@@ -289,10 +299,13 @@ namespace WpfProjectIdeas
         static DateTime RandomDateGenerator()
         {
             DateTime start = new DateTime(2020, 1, 1);
+
             Random rnd = new Random();
-            int range = ((TimeSpan)(DateTime.Today - start)).Days;
+            int range = ((TimeSpan)(DateTime.Today - start)).Days;   
             return start.AddDays(rnd.Next(range));
         }
-        #endregion        
+        #endregion
+
+        
     }
 }
