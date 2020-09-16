@@ -251,9 +251,17 @@ namespace WpfProjectIdeas
             {
                 projectIdea.StartDate = startDatePicker.SelectedDate.Value.Date;
             }
-            if(endDatePicker.SelectedDate != null)
+            else
+            {
+                projectIdea.StartDate = new DateTime(2100, 1, 1);
+            }
+            if (endDatePicker.SelectedDate != null)
             {
                 projectIdea.EndDate = endDatePicker.SelectedDate.Value.Date;
+            }
+            else
+            {
+                projectIdea.EndDate = new DateTime(2100, 1, 1);
             }
             projectIdea.Description = descriptionTextBox.Text;
             projectIdea.Desktop = desktopCheckbox.IsChecked.GetValueOrDefault();
