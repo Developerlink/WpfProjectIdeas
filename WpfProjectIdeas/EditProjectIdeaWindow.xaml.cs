@@ -247,8 +247,14 @@ namespace WpfProjectIdeas
             projectIdea.Name = projectTitleTextBox.Text;
             projectIdea.Frontend = markupLanguageTextBox.Text;
             projectIdea.Backend = languageTextBox.Text;
-            projectIdea.StartDate = startDatePicker.SelectedDate.Value.Date;
-            projectIdea.EndDate = endDatePicker.SelectedDate.Value.Date;
+            if(startDatePicker.SelectedDate != null)
+            {
+                projectIdea.StartDate = startDatePicker.SelectedDate.Value.Date;
+            }
+            if(endDatePicker.SelectedDate != null)
+            {
+                projectIdea.EndDate = endDatePicker.SelectedDate.Value.Date;
+            }
             projectIdea.Description = descriptionTextBox.Text;
             projectIdea.Desktop = desktopCheckbox.IsChecked.GetValueOrDefault();
             projectIdea.Web = webCheckbox.IsChecked.GetValueOrDefault();
