@@ -19,6 +19,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <ComboBox x:Name="orderSelectionComboBox" 
                   Margin="20,15,20,15"
@@ -39,6 +40,13 @@
                 Margin="20,10,20,10"
                 Grid.Row="0"
                 Grid.Column="1" />
+        <TextBlock x:Name="CountTextBlock" 
+                   Margin="10"
+                   Text="Number of projects: 0"
+                   TextAlignment="Center"
+                   Style="{StaticResource titelTextBlockStyle}"
+                   Grid.Row="0"
+                   Grid.Column="2"/>
 
         <ListView x:Name="projectIdeaListView"
                   PreviewKeyDown="EditProjectIdea_PreviewKeyDown"
@@ -51,7 +59,7 @@
                   Background="{StaticResource appBackgroundColor}"
                   Grid.Row="3"
                   Grid.Column="0"
-                  Grid.ColumnSpan="2">
+                  Grid.ColumnSpan="3">
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}">
                     <Setter Property="HorizontalContentAlignment"
