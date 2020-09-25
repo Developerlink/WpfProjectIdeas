@@ -11,10 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WpfProjectIdeas.Classes;
+using WpfProjectIdeas.Model;
 using SQLite;
-using static WpfProjectIdeas.Classes.SQLiteAction;
-using static WpfProjectIdeas.Classes.RandomMaker;
+using static WpfProjectIdeas.ViewModel.Helpers.SQLiteAction;
+using static WpfProjectIdeas.ViewModel.Helpers.RandomMaker;
 using Microsoft.Win32;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -113,7 +113,7 @@ namespace WpfProjectIdeas
         }
 
         private void CreateDummyDataButton_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             CreateDummyData();
         }
 

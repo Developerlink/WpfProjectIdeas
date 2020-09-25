@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
+using WpfProjectIdeas.Model;
 
-namespace WpfProjectIdeas.Classes
+namespace WpfProjectIdeas.ViewModel.Helpers
 {
     public class SQLiteAction
     {

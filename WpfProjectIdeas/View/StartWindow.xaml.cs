@@ -12,11 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfProjectIdeas.Classes;
 using SQLite;
 using System.Collections.ObjectModel;
-using static WpfProjectIdeas.Classes.SQLiteAction;
+using static WpfProjectIdeas.ViewModel.Helpers.SQLiteAction;
 using System.Reflection;
+using WpfProjectIdeas.ViewModel;
+using WpfProjectIdeas.Model;
 
 namespace WpfProjectIdeas
 {
@@ -31,7 +32,7 @@ namespace WpfProjectIdeas
             InitializeComponent();
 
             ReadData();
-        }      
+        }
 
         // TODO: Mulighed for at vise data fra en allerede eksisterende database, evt. kopiere databasen til app'en
         // TODO: Tilføj combobox som sorterer efter dekstop, web, mobile, iot, unikke projekt-navne
@@ -74,7 +75,7 @@ namespace WpfProjectIdeas
             else if (e.Key == Key.Delete)
             {
                 // Don't try to delete anything if there are no items in list.
-                if(projectIdeaListView.Items.Count > 0)
+                if (projectIdeaListView.Items.Count > 0)
                 {
                     DeleteFromDB(selectedProjectIdea);
                     ReadData();
@@ -111,13 +112,13 @@ namespace WpfProjectIdeas
             }
             else if (e.Key == Key.Right)
             {
-                if(projectIdeaListView.Items.Count > 0)
+                if (projectIdeaListView.Items.Count > 0)
                 {
                     projectIdeaListView.SelectedItem = projectIdeaListView.Items[0];
                     projectIdeaListView.Focus();
                 }
             }
-        }            
+        }
 
         private void OrderSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -128,19 +129,19 @@ namespace WpfProjectIdeas
             {
                 case "Frontend":
                     this.orderSelection = orderSelection;
-                        break;
-                    case "Backend":
+                    break;
+                case "Backend":
                     this.orderSelection = orderSelection;
-                        break;
-                    case "Start date":
+                    break;
+                case "Start date":
                     this.orderSelection = orderSelection;
-                        break;
-                    case "End date":
+                    break;
+                case "End date":
                     this.orderSelection = orderSelection;
-                        break;
-                    default:
+                    break;
+                default:
                     this.orderSelection = orderSelection;
-                        break;
+                    break;
             }
             ReadData();
         }
@@ -187,7 +188,7 @@ namespace WpfProjectIdeas
         void SetListviewSelectedItemVia(int index)
         {
             // If index of deleted item is the last go back 1 item. 
-            if(index == projectIdeaListView.Items.Count)
+            if (index == projectIdeaListView.Items.Count)
             {
                 projectIdeaListView.SelectedIndex = index - 1;
             }

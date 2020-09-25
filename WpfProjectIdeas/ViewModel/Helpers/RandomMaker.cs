@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfProjectIdeas.Classes
+namespace WpfProjectIdeas.ViewModel.Helpers
 {
     public class RandomMaker
     {      
