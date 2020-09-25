@@ -98,12 +98,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\Commands\RefreshListViewCommand.cs" />
+    <Compile Include="ViewModel\EditWindowVM.cs" />
     <Compile Include="ViewModel\Helpers\RandomMaker.cs" />
-    <Compile Include="ViewModel\ProjectIdeasVM.cs" />
+    <Compile Include="ViewModel\StartWindowVM.cs" />
     <Compile Include="View\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\EditProjectIdeaWindow.xaml">
+    <Page Include="View\EditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,8 +116,8 @@
     <Compile Include="ViewModel\Commands\CustomCommand.cs" />
     <Compile Include="Model\ProjectIdea.cs" />
     <Compile Include="ViewModel\Helpers\SQLiteAction.cs" />
-    <Compile Include="View\EditProjectIdeaWindow.xaml.cs">
-      <DependentUpon>EditProjectIdeaWindow.xaml</DependentUpon>
+    <Compile Include="View\EditWindow.xaml.cs">
+      <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="View\StartWindow.xaml">
       <SubType>Designer</SubType>

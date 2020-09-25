@@ -13,8 +13,11 @@ namespace WpfProjectIdeas
     /// </summary>
     public partial class App : Application
     {
-        static string databaseName = "ProjectIdeasDB.db";
-        public static string folderPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static string databasePath = System.IO.Path.Combine(folderPath, databaseName);
+        // TODO: Mulighed for at vise data fra en allerede eksisterende database, evt. kopiere databasen til app'en
+        // TODO: Tilføj combobox som sorterer efter dekstop, web, mobile, iot, unikke projekt-navne
+        // TODO: Listview skal være responsiv.
+        // TODO: Lav custom commands ala ctrl+n og ctrl+s for new- og save-funktionalitet.
+        // TODO: Lav custom controls til list view og databind på den avancerede måde.
+        // TODO: Sørg for at ord indeholdende ikke-engelske bogstaver bliver sorteret korrekt i listview.
     }
 }

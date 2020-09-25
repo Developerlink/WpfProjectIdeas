@@ -11,16 +11,13 @@ namespace WpfProjectIdeas.ViewModel.Helpers
 {
     public class SQLiteAction
     {
-
-        //public partial class App : Application
-        //{
-        //    static string databaseName = "ProjectIdeasDB.db";
-        //    static string folderPath = AppDomain.CurrentDomain.BaseDirectory;
-        //    public static string databasePath = System.IO.Path.Combine(folderPath, databaseName);
-        //}
+        static string databaseName = "ProjectIdeasDB.db";
+        public static string folderPath = AppDomain.CurrentDomain.BaseDirectory;
+        public static string databasePath = System.IO.Path.Combine(folderPath, databaseName);
+ 
         public static void SaveNewToDB(ProjectIdea projectIdea)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(App.databasePath))
+            using (SQLiteConnection conn = new SQLiteConnection(databasePath))
             {
                 conn.CreateTable<ProjectIdea>();
                 conn.Insert(projectIdea);
@@ -30,7 +27,7 @@ namespace WpfProjectIdeas.ViewModel.Helpers
 
         public static void UpdateToDB(ProjectIdea projectIdea)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(App.databasePath))
+            using (SQLiteConnection conn = new SQLiteConnection(databasePath))
             {
                 conn.CreateTable<ProjectIdea>();
                 conn.Update(projectIdea);
@@ -40,11 +37,24 @@ namespace WpfProjectIdeas.ViewModel.Helpers
 
         public static void DeleteFromDB(ProjectIdea projectIdea)
         {
-            using(SQLiteConnection conn = new SQLiteConnection(App.databasePath))
+            using(SQLiteConnection conn = new SQLiteConnection(databasePath))
             {
                 conn.CreateTable<ProjectIdea>();
                 conn.Delete(projectIdea);
             }
+        }
+
+        public static List<ProjectIdea> GetProjectIdeas()
+        {
+            var projectIdeas = new List<ProjectIdea>();
+
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(databasePath))
+            {
+                conn.CreateTable<ProjectIdea>();
+                projectIdeas = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.Name).ToList();
+            }
+
+            return projectIdeas;
         }
 
         public static void BackupDB()

@@ -19,6 +19,7 @@ using Microsoft.Win32;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Diagnostics;
+using WpfProjectIdeas.ViewModel.Helpers;
 
 namespace WpfProjectIdeas
 {
@@ -124,18 +125,13 @@ namespace WpfProjectIdeas
 
         private void Print()
         {
-            List<ProjectIdea> projectIdeaList;
-
-            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.databasePath))
-            {
-                conn.CreateTable<ProjectIdea>();
-                projectIdeaList = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.Name).ToList();
-            }
+            var projectIdeaList = SQLiteAction.GetProjectIdeas();
+            
             if (projectIdeaList != null)
             {
                 // The folder where the text copy should be stored.
                 CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-                dialog.InitialDirectory = App.folderPath;
+                dialog.InitialDirectory = folderPath;
                 dialog.IsFolderPicker = true;
                 if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
@@ -253,7 +249,7 @@ namespace WpfProjectIdeas
             // Displays a SaveFileDialog so the user can copy the database
             // in the app folder bin.
             SaveFileDialog saveBackupDBDialog = new SaveFileDialog();
-            saveBackupDBDialog.InitialDirectory = App.folderPath;
+            saveBackupDBDialog.InitialDirectory = folderPath;
             saveBackupDBDialog.Filter = "SQLite db-file|*.db";
             saveBackupDBDialog.Title = "Save a backup of database";
             // Suggested default name when opening the dialog.
@@ -264,7 +260,7 @@ namespace WpfProjectIdeas
             if (saveBackupDBDialog.FileName != "")
             {
                 // Path and filename of the source database.
-                string source = App.databasePath;
+                string source = databasePath;
                 string destination = saveBackupDBDialog.FileName;
                 //string databaseBackupFolder = System.IO.Path.GetDirectoryName(saveBackupDBDialog.FileName);
 

@@ -4,13 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfProjectIdeas"
+        xmlns:vm="clr-namespace:WpfProjectIdeas.ViewModel"
+       
         mc:Ignorable="d"
         Icon="favicon.ico"
         Title="Project Ideas"
         Height="600"
         Width="700"
         PreviewKeyDown="Window_PreviewKeyDown">
-    <Grid Background="{StaticResource appBackgroundColor}">
+    <Window.Resources>
+        <vm:StartWindowVM x:Key="vm"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource vm}" 
+          Background="{StaticResource appBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*" />
             <RowDefinition Height="auto" />
@@ -42,13 +48,14 @@
                 Grid.Column="1" />
         <TextBlock x:Name="CountTextBlock" 
                    Margin="10"
-                   Text="Number of projects: 0"
+                   Text="{Binding ProjectIdeas.Count, StringFormat={}Number of projects: {0}}"
                    TextAlignment="Center"
                    Style="{StaticResource titelTextBlockStyle}"
                    Grid.Row="0"
                    Grid.Column="2"/>
 
-        <ListView x:Name="projectIdeaListView"
+        <ListView ItemsSource="{Binding ProjectIdeas}" 
+                  x:Name="projectIdeaListView"
                   PreviewKeyDown="EditProjectIdea_PreviewKeyDown"
                   MouseDoubleClick="EditProjectIdeaListView_PreviewMouseDoubleClick"
                   Margin="20,10,20,10"

@@ -30,18 +30,9 @@ namespace WpfProjectIdeas
         public MainWindow()
         {
             InitializeComponent();
-
-            ReadData();
         }
 
-        // TODO: Mulighed for at vise data fra en allerede eksisterende database, evt. kopiere databasen til app'en
-        // TODO: Tilføj combobox som sorterer efter dekstop, web, mobile, iot, unikke projekt-navne
-        // TODO: Listview skal være responsiv.
-        // TODO: Lav custom commands ala ctrl+n og ctrl+s for new- og save-funktionalitet.
-        // TODO: Lav custom controls til list view og databind på den avancerede måde.
-        // TODO: Sørg for at ord indeholdende ikke-engelske bogstaver bliver sorteret korrekt i listview.
-
-
+        
         private void NewProjectIdeaBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenEditProjectIdeaWindow();
@@ -150,7 +141,7 @@ namespace WpfProjectIdeas
         {
             List<ProjectIdea> projectIdeaList;
 
-            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.databasePath))
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(databasePath))
             {
                 conn.CreateTable<ProjectIdea>();
 
@@ -176,12 +167,12 @@ namespace WpfProjectIdeas
             }
             if (projectIdeaList != null)
             {
-                projectIdeaListView.ItemsSource = projectIdeaList;
-                CountTextBlock.Text = $"Number of projects: {projectIdeaList.Count}";
+                //projectIdeaListView.ItemsSource = projectIdeaList;
+                //CountTextBlock.Text = $"Number of projects: {projectIdeaList.Count}";
             }
             else
             {
-                CountTextBlock.Text = $"Number of projects: 0";
+                //CountTextBlock.Text = $"Number of projects: 0";
             }
         }
 

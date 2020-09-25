@@ -4,11 +4,25 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfProjectIdeas.Model;
 
 namespace WpfProjectIdeas.ViewModel
 {
-    public class ProjectIdeasVM : INotifyPropertyChanged
+    public class EditWindowVM : INotifyPropertyChanged
     {
+        public ProjectIdea ProjectIdea { get; set; }
+
+
+
+        public EditWindowVM()
+        {
+
+        }
+
+        public EditWindowVM(ProjectIdea projectIdea)
+        {
+
+        }
 
 
 
