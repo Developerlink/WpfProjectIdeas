@@ -32,7 +32,7 @@ namespace WpfProjectIdeas.ViewModel
 
         public void ReadData()
         {
-            var projectIdeas = SQLiteAction.GetProjectIdeas();
+            var projectIdeas = SQLiteControls.GetProjectIdeas();
             ProjectIdeas.Clear();
             foreach(var idea in projectIdeas)
             {
