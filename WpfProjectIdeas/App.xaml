@@ -16,7 +16,7 @@
         </Style>
         
         <Style x:Key="secondButtonStyle" TargetType="Button" BasedOn="{StaticResource mainButtonStyle}">
-            <Setter Property="Margin" Value="10,12,10,12"/>
+            <Setter Property="Margin" Value="10,18,10,18"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
 

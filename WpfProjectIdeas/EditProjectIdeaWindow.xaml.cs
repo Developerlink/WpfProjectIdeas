@@ -52,7 +52,7 @@ namespace WpfProjectIdeas
             {
                 SaveChangesToLocalObject(localProjectIdea);
                 SaveNewToDB(localProjectIdea);
-                this.Focus();
+                ClearAllFields();
             }
         }
 
@@ -116,57 +116,6 @@ namespace WpfProjectIdeas
         {
             CreateDummyData();
         }
-
-        private void PrintButton_Click(object sender, RoutedEventArgs e)
-        {
-            Print();
-        }
-
-        private void Print()
-        {
-            List<ProjectIdea> projectIdeaList;
-
-            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.databasePath))
-            {
-                conn.CreateTable<ProjectIdea>();
-                projectIdeaList = conn.Table<ProjectIdea>().OrderBy(projectIdea => projectIdea.Name).ToList();
-            }
-            if (projectIdeaList != null)
-            {
-                // The folder where the text copy should be stored.
-                CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-                dialog.InitialDirectory = App.folderPath;
-                dialog.IsFolderPicker = true;
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                {
-                    // Hardcoded filename.
-                    string folderPath = dialog.FileName;
-                    string textFileName = "ProjectIdeasTextCopy.txt";
-                    var path = System.IO.Path.Combine(folderPath, textFileName);
-
-                    WriteDataToTextFile(projectIdeaList, path);                   
-
-                }                
-            }
-        }
-
-        private void WriteDataToTextFile(List<ProjectIdea> projectIdeaList, string path)
-        {
-            using (StreamWriter outputFile = new StreamWriter(path, append: false))
-            {
-                StringBuilder stringBuilder = new StringBuilder();
-                foreach (var idea in projectIdeaList)
-                {
-                    stringBuilder.Append($"{idea.Name} \n");
-                    stringBuilder.Append($"{idea.Frontend} - {idea.Backend} \n");
-                    stringBuilder.Append($"{idea.StartDate} - {idea.EndDate} \n");
-                    stringBuilder.Append($"{idea.Description} \n");
-                    stringBuilder.Append("----------------------- \n\n");
-                }
-
-                outputFile.WriteLine(stringBuilder);
-            }
-        }
         #endregion
 
         #region Key Downs       
@@ -183,7 +132,7 @@ namespace WpfProjectIdeas
                     {
                         SaveChangesToLocalObject(localProjectIdea);
                         SaveNewToDB(localProjectIdea);
-                        this.Focus();
+                        ClearAllFields();
                     }
                     break;
                 case Key.PageUp:
@@ -206,10 +155,6 @@ namespace WpfProjectIdeas
                     break;
                 case Key.Home:
                     CreateDummyData();
-                    break;
-                case Key.Delete:
-                    DeleteFromDB(localProjectIdea);
-                    Close();
                     break;
                 default:
                     break;
@@ -253,7 +198,7 @@ namespace WpfProjectIdeas
             // Displays a SaveFileDialog so the user can copy the database
             // in the app folder bin.
             SaveFileDialog saveBackupDBDialog = new SaveFileDialog();
-            saveBackupDBDialog.InitialDirectory = App.folderPath;
+            saveBackupDBDialog.InitialDirectory = "C:\\Desktop";
             saveBackupDBDialog.Filter = "SQLite db-file|*.db";
             saveBackupDBDialog.Title = "Save a backup of database";
             // Suggested default name when opening the dialog.
@@ -369,11 +314,19 @@ namespace WpfProjectIdeas
             MessageBox.Show("The name of the project cannot be empty", "Invalid input", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        static DateTime RandomDateGenerator()
+        {
+            DateTime start = new DateTime(2020, 1, 1);
 
+            Random rnd = new Random();
+            int range = ((TimeSpan)(DateTime.Today - start)).Days;   
+            return start.AddDays(rnd.Next(range));
+        }
 
         #endregion
 
         
+
     }
 }
                 

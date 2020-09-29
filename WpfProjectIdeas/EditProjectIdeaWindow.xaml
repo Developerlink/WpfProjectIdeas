@@ -70,12 +70,6 @@
                 Click="CreateDummyDataButton_Click"
                 Grid.Row="7"
                 Grid.Column="8"/>
-        <Button x:Name="PrintButton"
-                Content="Print text copy" 
-                Style="{StaticResource secondButtonStyle}"
-                Click="PrintButton_Click"
-                Grid.Row="8"
-                Grid.Column="8"/>
         
         <TextBlock Text="Project name"
                    Style="{StaticResource techTextBlockStyle}"

@@ -14,7 +14,7 @@ namespace WpfProjectIdeas
     public partial class App : Application
     {
         static string databaseName = "ProjectIdeasDB.db";
-        public static string folderPath = AppDomain.CurrentDomain.BaseDirectory;
+        static string folderPath = AppDomain.CurrentDomain.BaseDirectory;
         public static string databasePath = System.IO.Path.Combine(folderPath, databaseName);
     }
 }

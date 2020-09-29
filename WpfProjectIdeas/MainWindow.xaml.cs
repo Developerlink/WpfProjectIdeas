@@ -31,10 +31,8 @@ namespace WpfProjectIdeas
             InitializeComponent();
 
             ReadData();
-        }      
+        }       
 
-        // TODO: Mulighed for at vise data fra en allerede eksisterende database, evt. kopiere databasen til app'en
-        // TODO: Tilføj combobox som sorterer efter dekstop, web, mobile, iot, unikke projekt-navne
         // TODO: Listview skal være responsiv.
         // TODO: Lav custom commands ala ctrl+n og ctrl+s for new- og save-funktionalitet.
         // TODO: Lav custom controls til list view og databind på den avancerede måde.
@@ -176,11 +174,6 @@ namespace WpfProjectIdeas
             if (projectIdeaList != null)
             {
                 projectIdeaListView.ItemsSource = projectIdeaList;
-                CountTextBlock.Text = $"Number of projects: {projectIdeaList.Count}";
-            }
-            else
-            {
-                CountTextBlock.Text = $"Number of projects: 0";
             }
         }
 
